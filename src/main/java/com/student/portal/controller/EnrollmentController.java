@@ -1,5 +1,6 @@
 package com.student.portal.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.student.portal.service.EnrollmentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +23,18 @@ public class EnrollmentController extends BaseController {
     @Autowired
     private EnrollmentService enrollmentService;
 
+    /**
+     * Need to test
+     * */
     @PostMapping("/enrollCourse/{id}")
-    public String enrollCourse(@PathVariable Long id) {
+    public String enrollCourse(@PathVariable Long id) throws JsonProcessingException {
         this.enrollmentService.enrollStudent(id, this.getCurrentSessionUserEmail());
         return "redirect:/student/studentIndex";
     }
 
+    /**
+     * Need to test
+     * */
     @GetMapping("/enrolled-courses")
     public ModelAndView viewEnrolledCourses(Model model) {
         ModelAndView mav = new ModelAndView("viewEnrolledCourses");

@@ -1,5 +1,7 @@
 package com.student.portal.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.student.portal.controller.EnrollmentController;
 import com.student.portal.dao.dto.CourseDto;
 import com.student.portal.dao.dto.EnrollmentDto;
 import com.student.portal.dao.entities.Course;
@@ -10,6 +12,8 @@ import com.student.portal.dao.repository.EnrollmentRepository;
 import com.student.portal.dao.repository.StudentRepository;
 import com.student.portal.service.EnrollmentService;
 import com.student.portal.service.FinanceService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -18,6 +22,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService {
+
+    private Logger logger = LoggerFactory.getLogger(EnrollmentServiceImpl.class);
 
     @Autowired
     private FinanceService financeService;
@@ -29,17 +35,17 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     private EnrollmentRepository enrollmentRepository;
 
 
-    public void enrollStudent(Long id, String email) {
+    public void enrollStudent(Long id, String email) throws JsonProcessingException {
         Student student = this.studentRepository.findByEmail(email);
         Course course = this.courseRepository.getCourseById(id);
         Boolean isEnrollmentAlreadyExist = this.enrollmentRepository.existsByStudentIdAndCourseId(
             student.getId(), course.getId());
         if(!isEnrollmentAlreadyExist){
-          Enrollment enrollment = new Enrollment();
-          enrollment.setStudent(student);
-          enrollment.setCourse(course);
-          this.enrollmentRepository.save(enrollment);
           this.financeService.createNewFinanceInvoiceForStudentCourse(student, course);
+            Enrollment enrollment = new Enrollment();
+            enrollment.setStudent(student);
+            enrollment.setCourse(course);
+            this.enrollmentRepository.save(enrollment);
         }
     }
 
@@ -58,4 +64,8 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         }).collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteAllByStudentId(Long studentId) {
+        this.enrollmentRepository.deleteAllByStudentId(studentId);
+    }
 }
