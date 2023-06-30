@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Enrollments</title>
+</head>
+<body style="background-color: #f5f5f5; font-family: Arial, sans-serif;">
+<div style="max-width: 800px; margin: 0 auto; padding: 20px; background-color: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+    <h1 style="font-size: 32px; text-align: center; margin-bottom: 20px;">My Enrollments</h1>
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <thead>
+        <tr>
+            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #ddd;">Enrollment ID</th>
+            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #ddd;">Course Name</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="enrollment : ${enrollments}">
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;" th:text="${enrollment.id}"></td>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;" th:text="${enrollment.course.name}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+    <div style="text-align: center;">
+        <a href="/student/studentIndex" style="display: inline-block; padding: 10px; background-color: #f2f2f2; color: #333; text-decoration: none; border-radius: 5px;">Back to Student Index</a>
+    </div>
+</div>
+</body>
+</html>

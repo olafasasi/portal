@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Index</title>
+</head>
+<body style="background-color: #f5f5f5; font-family: Arial, sans-serif;">
+<div style="max-width: 800px; margin: 0 auto; padding: 20px; background-color: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+  <h1 style="font-size: 32px; text-align: center; margin-bottom: 20px;">Welcome, <span th:text="${student.firstName}"></span></h1>
+  <ul style="list-style: none; padding: 0; margin: 0;">
+    <li style="margin-bottom: 10px;">
+      <a href="/course/allCourses" style="display: block; padding: 10px; background-color: #f2f2f2; color: #333; text-decoration: none; border-radius: 5px;">View All Courses</a>
+    </li>
+    <li style="margin-bottom: 10px;">
+      <a href="/student/profile" style="display: block; padding: 10px; background-color: #f2f2f2; color: #333; text-decoration: none; border-radius: 5px;">View My Profile</a>
+    </li>
+    <li style="margin-bottom: 10px;">
+      <a href="/student/enrolled-courses" style="display: block; padding: 10px; background-color: #f2f2f2; color: #333; text-decoration: none; border-radius: 5px;">View My Enrolled Courses</a>
+    </li>
+    <li style="margin-bottom: 10px;">
+      <a href="/student/graduation-eligibility" style="display: block; padding: 10px; background-color: #f2f2f2; color: #333; text-decoration: none; border-radius: 5px;">Check My Graduation Eligibility</a>
+    </li>
+    <li style="margin-bottom: 10px;">
+      <a href="/logout" style="display: block; padding: 10px; background-color: #f2f2f2; color: #333; text-decoration: none; border-radius: 5px;">Logout</a>
+    </li>
+
+  </ul>
+</div>
+</body>
+</html>
