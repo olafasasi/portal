@@ -3,6 +3,8 @@ package com.student.portal.service.impl;
 import com.student.portal.dao.dto.StudentDto;
 import com.student.portal.dao.entities.Student;
 import com.student.portal.dao.repository.StudentRepository;
+import com.student.portal.service.FinanceService;
+import com.student.portal.service.LibraryService;
 import com.student.portal.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,10 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
+    private FinanceService financeService;
+    @Autowired
+    private LibraryService libraryService;
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
 
@@ -32,6 +38,9 @@ public class StudentServiceImpl implements StudentService {
         student.setRole("ROLE_STUDENT");
         student.setPasswordHash(this.passwordEncoder.encode(studentDto.getPasswordHash()));
         this.studentRepository.save(student);
+        // send the request to fanice service
+        this.financeService.createNewFinanceAccountForStudent(student);
+        this.libraryService.createNewLibraryAccountForStudent(student);
     }
 
     @Override
