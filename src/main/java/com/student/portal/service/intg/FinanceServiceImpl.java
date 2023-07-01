@@ -28,9 +28,9 @@ public class FinanceServiceImpl implements FinanceService {
 
     private Logger logger = LoggerFactory.getLogger(EnrollmentServiceImpl.class);
 
-    @Value("account.api")
+    @Value("${account.api}")
     private String accountApi;
-    @Value("invoice.api")
+    @Value("${invoice.api}")
     private String invoiceApi;
 
     @Autowired

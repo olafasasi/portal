@@ -35,9 +35,9 @@ public class StudentController extends BaseController{
 
     private Logger logger = LoggerFactory.getLogger(StudentController.class);
 
-    @Value("invoice.api")
+    @Value("${invoice.api}")
     private String invoiceApi;
-    @Value("account.api")
+    @Value("${account.api}")
     private String accountApi;
     @Autowired
     private RestTemplate restTemplate;

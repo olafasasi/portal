@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class LibraryServiceImpl implements LibraryService {
 
-    @Value("library.api")
+    @Value("${library.api}")
     private String libraryApi;
 
     @Autowired
