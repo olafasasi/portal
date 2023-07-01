@@ -37,7 +37,8 @@ public class StudentServiceImpl implements StudentService {
         Student student = this.studentMapper(studentDto);
         student.setRole("ROLE_STUDENT");
         student.setPasswordHash(this.passwordEncoder.encode(studentDto.getPasswordHash()));
-        this.studentRepository.save(student);
+        student = this.studentRepository.save(student);
+        studentDto.setId(student.getId());
         // send the request to fanice service
         this.financeService.createNewFinanceAccountForStudent(student);
         this.libraryService.createNewLibraryAccountForStudent(student);
