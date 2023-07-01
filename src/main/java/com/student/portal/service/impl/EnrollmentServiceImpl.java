@@ -33,19 +33,21 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     @Autowired
     private EnrollmentRepository enrollmentRepository;
 
-
-    public void enrollStudent(Long id, String email) throws JsonProcessingException {
+    public Enrollment enrollStudent(Long courseId, String email) throws JsonProcessingException {
+        Enrollment enrollment = null;
         Student student = this.studentRepository.findByEmail(email);
-        Course course = this.courseRepository.getCourseById(id);
+        Course course = this.courseRepository.getCourseById(courseId);
         Boolean isEnrollmentAlreadyExist = this.enrollmentRepository.existsByStudentIdAndCourseId(
             student.getId(), course.getId());
         if(!isEnrollmentAlreadyExist){
           this.financeService.createNewFinanceInvoiceForStudentCourse(student, course);
-            Enrollment enrollment = new Enrollment();
+            enrollment = new Enrollment();
             enrollment.setStudent(student);
             enrollment.setCourse(course);
-            this.enrollmentRepository.save(enrollment);
+            enrollment = this.enrollmentRepository.save(enrollment);
+            return enrollment;
         }
+        return enrollment;
     }
 
     public List<EnrollmentDto> fetchAllEnrolledCoursesByStudent(String email) {
@@ -64,7 +66,8 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
-    public void deleteAllByStudentId(Long studentId) {
+    public int deleteAllByStudentId(Long studentId) {
         this.enrollmentRepository.deleteAllByStudentId(studentId);
+        return 1;
     }
 }
