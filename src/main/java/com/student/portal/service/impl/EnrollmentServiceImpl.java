@@ -15,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +46,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
             enrollment = new Enrollment();
             enrollment.setStudent(student);
             enrollment.setCourse(course);
+            enrollment.setEnrollmentDate(LocalDate.now());
             enrollment = this.enrollmentRepository.save(enrollment);
             return enrollment;
         }

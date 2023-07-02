@@ -15,6 +15,12 @@ public class CourseDto {
     public CourseDto() {
     }
 
+    public CourseDto(String name, String description, Double cost) {
+        this.name = name;
+        this.description = description;
+        this.cost = cost;
+    }
+
     public Long getId() {
         return id;
     }
