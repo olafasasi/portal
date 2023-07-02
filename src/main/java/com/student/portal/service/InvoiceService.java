@@ -10,5 +10,9 @@ public interface InvoiceService {
 
     public void deleteInvoiceById(Long invoiceId);
 
+    public void updateInvoice(Long invoiceId);
+
     public List<InvoiceDto> getInvoiceByStudentId(Long studentId);
+
+    public List<InvoiceDto> getOutstadingInvoiceByStudentId(Long studentId);
 }

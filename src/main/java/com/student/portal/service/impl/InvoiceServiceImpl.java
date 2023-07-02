@@ -1,6 +1,7 @@
 package com.student.portal.service.impl;
 
 import com.student.portal.dao.dto.InvoiceDto;
+import com.student.portal.dao.dto.Status;
 import com.student.portal.dao.entities.Invoice;
 import com.student.portal.dao.repository.InvoiceRepository;
 import com.student.portal.service.InvoiceService;
@@ -27,9 +28,22 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public void updateInvoice(Long invoiceId) {
+        Invoice invoice = this.invoiceRepository.findById(invoiceId).get();
+        invoice.setStatus(Status.PAID);
+        this.invoiceRepository.save(invoice);
+    }
+
+    @Override
     public List<InvoiceDto> getInvoiceByStudentId(Long studentId) {
         return this.invoiceRepository.getInvoiceByStudentId(studentId).stream()
         .map(invoice -> mapInvoiceToInvoiceDto(invoice)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<InvoiceDto> getOutstadingInvoiceByStudentId(Long studentId) {
+        return this.invoiceRepository.getInvoiceByStudentIdAndStatus(studentId, Status.OUTSTANDING).stream()
+            .map(invoice -> mapInvoiceToInvoiceDto(invoice)).collect(Collectors.toList());
     }
 
     private InvoiceDto mapInvoiceToInvoiceDto(Invoice invoice) {

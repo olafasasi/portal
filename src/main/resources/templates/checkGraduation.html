@@ -65,7 +65,7 @@
         <th>Invoice ID</th>
         <th>Amount</th>
         <th>Reference</th>
-<!--        <th>Pay</th>-->
+        <th>Pay</th>
     </tr>
     </thead>
     <tbody>
@@ -73,12 +73,12 @@
         <td th:text="${invoice.id}"></td>
         <td th:text="'$' + ${invoice.amount}"></td>
         <td th:text="${invoice.reference}"></td>
-<!--        <td>-->
-<!--            <form method="post" th:action="@{/student/pay-invoice/{id}(id=${invoice.id})}">-->
-<!--                <input type="hidden" th:name="invoiceId" th:value="${invoice.id}"/>-->
-<!--                <button type="submit">Pay Now</button>-->
-<!--            </form>-->
-<!--        </td>-->
+        <td>
+            <form method="post" th:action="@{/student/pay-invoice/{id}(id=${invoice.id})}">
+                <input type="hidden" th:name="invoiceId" th:value="${invoice.id}"/>
+                <button type="submit">Pay Now</button>
+            </form>
+        </td>
     </tr>
     <tr>
         <td>Total:</td>

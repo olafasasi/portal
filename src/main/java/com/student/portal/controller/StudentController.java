@@ -89,7 +89,7 @@ public class StudentController extends BaseController{
             hasOutstandingBalance = responseObject.getBoolean("hasOutstandingBalance");
         }
         if (hasOutstandingBalance) {
-            List<InvoiceDto> invoiceList = this.invoiceService.getInvoiceByStudentId(student.getId());
+            List<InvoiceDto> invoiceList = this.invoiceService.getOutstadingInvoiceByStudentId(student.getId());
             double totalAmount = 0.0;
             for (InvoiceDto invoice : invoiceList) {
                 totalAmount += invoice.getAmount();
@@ -121,6 +121,7 @@ public class StudentController extends BaseController{
         String finalUrl = String.format(this.invoiceApi+"/%s/pay", invoiceId);
         HttpEntity<String> entity = new HttpEntity<String>("{}", headers);
         this.restTemplate.exchange(finalUrl, HttpMethod.PUT, entity, String.class);
+        this.invoiceService.updateInvoice(id);
         StudentDto student = this.studentService.findByEmail(this.getCurrentSessionUserEmail());
         List<InvoiceDto> list = this.invoiceService.getInvoiceByStudentId(student.getId());
         if(list.size() == 0){

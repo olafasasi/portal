@@ -1,5 +1,6 @@
 package com.student.portal.dao.entities;
 
+import com.student.portal.dao.dto.Status;
 import javax.persistence.*;
 
 
@@ -22,6 +23,8 @@ public class Invoice {
 
     @Column(name = "reference")
     private String reference;
+
+    private Status status;
 
     public Invoice() {
     }
@@ -86,5 +89,13 @@ public class Invoice {
 
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

@@ -4,6 +4,7 @@ package com.student.portal.service.intg;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.student.portal.dao.dto.Status;
 import com.student.portal.dao.entities.Course;
 import com.student.portal.dao.entities.Invoice;
 import com.student.portal.dao.entities.Student;
@@ -97,6 +98,7 @@ public class FinanceServiceImpl implements FinanceService {
         invoice.setInvoiceId(invoiceId);
         invoice.setStudentId(student.getId());
         invoice.setAmount(course.getCost());
+        invoice.setStatus(Status.OUTSTANDING);
         this.invoiceRepository.save(invoice);
     }
 }
