@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -41,8 +42,8 @@ public class HomeController {
      * Working
      * */
     @PostMapping("/register")
-    public ModelAndView registerSuccess(StudentDto student) {
-        this.studentService.saveStudent(student);
+    public ModelAndView registerSuccess(@ModelAttribute("student")  StudentDto student) {
+    this.studentService.saveStudent(student);
         ModelAndView mav = new ModelAndView("redirect:/login");
         return mav;
     }
