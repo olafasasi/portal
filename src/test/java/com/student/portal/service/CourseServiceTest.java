@@ -3,7 +3,6 @@ package com.student.portal.service;
 import com.student.portal.dao.dto.CourseDto;
 import com.student.portal.dao.entities.Course;
 import com.student.portal.dao.repository.CourseRepository;
-
 import java.util.Arrays;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
@@ -33,10 +32,10 @@ public class CourseServiceTest {
     public void setUp() {
         this.course = new Course(1l, "BE/B.Tech- Bachelor of Technology.",
             "BE/B.Tech- Bachelor of Technology.", 1000.0);
-        Mockito.when(this.courseRepository.findById(this.course.getId())).thenReturn(Optional.of(course));
-        Mockito.when(this.courseRepository.findAll()).thenReturn(Arrays.asList(course));
-        Mockito.when(this.courseRepository.save(course)).thenReturn(course);
-        Mockito.doNothing().when(this.courseRepository).delete(course);
+        Mockito.when(this.courseRepository.findById(this.course.getId())).thenReturn(Optional.of(this.course));
+        Mockito.when(this.courseRepository.findAll()).thenReturn(Arrays.asList(this.course));
+        Mockito.when(this.courseRepository.save(this.course)).thenReturn(this.course);
+        Mockito.doNothing().when(this.courseRepository).delete(this.course);
     }
 
     @Test

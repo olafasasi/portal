@@ -1,5 +1,7 @@
 package com.student.portal.dao.dto;
 
+import com.google.gson.Gson;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -69,5 +71,10 @@ public class StudentDto {
 
     public void setCourses(Set<CourseDto> courses) {
         this.courses = courses;
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }

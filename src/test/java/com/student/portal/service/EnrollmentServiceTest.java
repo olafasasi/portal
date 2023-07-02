@@ -1,6 +1,6 @@
 package com.student.portal.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.student.portal.dao.entities.Course;
 import com.student.portal.dao.entities.Enrollment;
 import com.student.portal.dao.entities.Student;
@@ -28,7 +28,7 @@ import java.util.Set;
 public class EnrollmentServiceTest {
 
     private Course course = new Course(1l, "BE/B.Tech- Bachelor of Technology.", "BE/B.Tech- Bachelor of Technology.", 1000.0);
-    private Student student = new Student(1l, "Nabeel", "Ahmed", "apple@gmail.com",
+    private Student student = new Student(1l, "ALFA", "BETA", "test@email.com",
         "$2a$10$OtjiCN27cKN9CY6zvV7w7OHKDULtiJxgQFo3.zKC8j0xFCnWLwsfq", Set.of(course), "ROLE_STUDENT");
     private Enrollment enrollment;
 
@@ -41,14 +41,13 @@ public class EnrollmentServiceTest {
 
     @BeforeEach
     public void setUp() {
-        this.enrollment = new Enrollment(2l, student, course, LocalDate.parse("2020-04-04"));
-
-        Mockito.when(studentRepository.findByEmail(student.getEmail())).thenReturn(student);
-        Mockito.when(this.enrollmentRepository.findById(this.enrollment.getId())).thenReturn(Optional.of(enrollment));
-        Mockito.when(this.enrollmentRepository.findByStudentId(this.enrollment.getId())).thenReturn(Arrays.asList(enrollment));
-        Mockito.when(this.enrollmentRepository.findAll()).thenReturn(Arrays.asList(enrollment));
-        Mockito.when(this.enrollmentRepository.save(enrollment)).thenReturn(enrollment);
-        Mockito.doNothing().when(this.enrollmentRepository).delete(enrollment);
+        this.enrollment = new Enrollment(2l, this.student, this.course, LocalDate.parse("2020-04-04"));
+        Mockito.when(this.studentRepository.findByEmail(this.student.getEmail())).thenReturn(this.student);
+        Mockito.when(this.enrollmentRepository.findById(this.enrollment.getId())).thenReturn(Optional.of(this.enrollment));
+        Mockito.when(this.enrollmentRepository.findByStudentId(this.enrollment.getId())).thenReturn(Arrays.asList(this.enrollment));
+        Mockito.when(this.enrollmentRepository.findAll()).thenReturn(Arrays.asList(this.enrollment));
+        Mockito.when(this.enrollmentRepository.save(this.enrollment)).thenReturn(this.enrollment);
+        Mockito.doNothing().when(this.enrollmentRepository).delete(this.enrollment);
     }
 
     @Test

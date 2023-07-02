@@ -7,8 +7,8 @@ public interface StudentService {
 
     public StudentDto findByEmail(String email);
 
-    public Student saveStudent(StudentDto studentDto);
+    public StudentDto saveStudent(StudentDto studentDto);
 
-    public Student updateStudent(StudentDto studentDto);
+    public StudentDto updateStudent(StudentDto studentDto);
 
 }

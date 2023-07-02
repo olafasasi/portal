@@ -7,14 +7,12 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -35,51 +33,48 @@ public class StudentServiceTest {
 
     @BeforeEach
     public void setUp() {
+        this.studentDto = new StudentDto();
+        this.studentDto.setId(this.id);
+        this.studentDto.setFirstName("ALFA");
+        this.studentDto.setLastName("BETA");
+        this.studentDto.setEmail(this.email);
+        this.studentDto.setPasswordHash("admin");
+        this.studentDto.setRole(this.role);
 
-      studentDto = new StudentDto();
-      studentDto.setId(id);
-      studentDto.setFirstName("ALFA");
-      studentDto.setLastName("BETA");
-      studentDto.setEmail(email);
-      studentDto.setPasswordHash("admin");
-      studentDto.setRole(role);
+        this.student = new Student();
+        this.student.setFirstName("ALFA");
+        this.student.setLastName("BETA");
+        this.student.setEmail(this.email);
+        this.student.setPasswordHash("admin");
+        this.student.setRole(this.role);
 
-      student = new Student();
-      student.setFirstName("ALFA");
-      student.setLastName("BETA");
-      student.setEmail(email);
-      student.setPasswordHash("admin");
-      student.setRole(role);
-
-      Mockito.when(studentRepository.findByEmail(student.getEmail()))
-          .thenReturn(student);
-      Mockito.when(studentRepository.save(student))
-          .thenReturn(student);
+        Mockito.when(this.studentRepository.findByEmail(this.student.getEmail())).thenReturn(this.student);
+        Mockito.when(this.studentRepository.save(this.student)).thenReturn(this.student);
     }
 
     @Test
-    public void testGetStudentByEmail_withValidEmail_ReturnsExistingStudent() {
-      StudentDto studentDto = this.studentService.findByEmail(email);
-      Assertions.assertThat(studentDto.getEmail().equals(email));
-      Assertions.assertThat(studentDto.getRole().equals(role));
+    public void testGetStudentByEmailWithValidEmailReturnsExistingStudent() {
+        StudentDto studentDto = this.studentService.findByEmail(email);
+        Assertions.assertThat(studentDto.getEmail().equals(email));
+        Assertions.assertThat(studentDto.getRole().equals(role));
     }
 
     @Test
-    void testGetStudentByEmail_withInValidEmail_throwsException() {
-      assertThrows(Exception.class, () -> studentService.findByEmail("Dummy"),
+    void testGetStudentByEmailWithInValidEmailThrowsException() {
+        assertThrows(Exception.class, () -> this.studentService.findByEmail("Dummy"),
           "Exception was not thrown.");
     }
 
     @Test
-    void testGetStudentByEmail_withEmptyEmail_throwsException() {
-      assertThrows(Exception.class, () -> studentService.findByEmail(""),
+    void testGetStudentByEmailWithEmptyEmailThrowsException() {
+        assertThrows(Exception.class, () -> this.studentService.findByEmail(""),
           "Exception was not thrown.");
     }
 
     @Test
-    void testGetStudentByEmail_withInNullEmail_throwsException() {
-      assertThrows(Exception.class, () -> studentService.findByEmail(null),
-          "Exception was not thrown.");
+    void testGetStudentByEmailWithInNullEmail_throwsException() {
+        assertThrows(Exception.class, () -> this.studentService.findByEmail(null),
+        "Exception was not thrown.");
     }
 
     @Test
