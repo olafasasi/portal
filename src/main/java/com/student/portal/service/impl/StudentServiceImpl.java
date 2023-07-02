@@ -33,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void saveStudent(StudentDto studentDto) {
+    public Student saveStudent(StudentDto studentDto) {
         Student student = this.studentMapper(studentDto);
         student.setRole("ROLE_STUDENT");
         student.setPasswordHash(this.passwordEncoder.encode(studentDto.getPasswordHash()));
@@ -41,15 +41,17 @@ public class StudentServiceImpl implements StudentService {
         studentDto.setId(student.getId());
         // send the request to fanice service
         this.financeService.createNewFinanceAccountForStudent(student);
-        this.libraryService.createNewLibraryAccountForStudent(student);
+//        this.libraryService.createNewLibraryAccountForStudent(student);
+        return student;
     }
 
     @Override
-    public void updateStudent(StudentDto studentDto) {
+    public Student updateStudent(StudentDto studentDto) {
         Student currentStudent = this.studentRepository.findByEmail(studentDto.getEmail());
         currentStudent.setFirstName(studentDto.getFirstName());
         currentStudent.setLastName(studentDto.getLastName());
         this.studentRepository.save(currentStudent);
+        return currentStudent;
     }
 
     /**
@@ -74,7 +76,7 @@ public class StudentServiceImpl implements StudentService {
      * */
     private Student studentMapper(StudentDto studentDto) {
         Student student = new Student();
-        student.setId(studentDto.getId());
+//        student.setId(studentDto.getId());
         student.setFirstName(studentDto.getFirstName());
         student.setLastName(studentDto.getLastName());
         student.setEmail(studentDto.getEmail());

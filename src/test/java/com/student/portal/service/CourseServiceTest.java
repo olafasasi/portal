@@ -3,8 +3,9 @@ package com.student.portal.service;
 import com.student.portal.dao.dto.CourseDto;
 import com.student.portal.dao.entities.Course;
 import com.student.portal.dao.repository.CourseRepository;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Arrays;
+import java.util.Optional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,9 +17,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Arrays;
-import java.util.Optional;
-
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -26,7 +24,6 @@ import java.util.Optional;
 public class CourseServiceTest {
 
     private Course course;
-
     @MockBean
     private CourseRepository courseRepository;
     @Autowired

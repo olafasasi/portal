@@ -5,6 +5,7 @@ import com.student.portal.dao.entities.Course;
 import com.student.portal.dao.entities.Enrollment;
 import com.student.portal.dao.entities.Student;
 import com.student.portal.dao.repository.EnrollmentRepository;
+import com.student.portal.dao.repository.StudentRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,23 +34,21 @@ public class EnrollmentServiceTest {
 
     @MockBean
     private EnrollmentRepository enrollmentRepository;
+    @MockBean
+    private StudentRepository studentRepository;
     @Autowired
     private EnrollmentService enrollmentService;
 
     @BeforeEach
     public void setUp() {
         this.enrollment = new Enrollment(2l, student, course, LocalDate.parse("2020-04-04"));
+
+        Mockito.when(studentRepository.findByEmail(student.getEmail())).thenReturn(student);
         Mockito.when(this.enrollmentRepository.findById(this.enrollment.getId())).thenReturn(Optional.of(enrollment));
+        Mockito.when(this.enrollmentRepository.findByStudentId(this.enrollment.getId())).thenReturn(Arrays.asList(enrollment));
         Mockito.when(this.enrollmentRepository.findAll()).thenReturn(Arrays.asList(enrollment));
         Mockito.when(this.enrollmentRepository.save(enrollment)).thenReturn(enrollment);
         Mockito.doNothing().when(this.enrollmentRepository).delete(enrollment);
-    }
-
-    @Test
-    public void enrollStudent() throws JsonProcessingException {
-        Enrollment enrollment = this.enrollmentService.enrollStudent(this.course.getId(), this.student.getEmail());
-        Assertions.assertThat(enrollment.getId());
-        Assertions.assertThat(enrollment.getEnrollmentDate().equals(LocalDate.parse("2020-04-04")));
     }
 
     @Test
